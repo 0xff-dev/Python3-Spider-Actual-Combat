@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 requests = "*"
 requests-oauthlib = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.5"
