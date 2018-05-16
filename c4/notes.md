@@ -96,4 +96,53 @@ html.xpath('//li[1]/following-sibling::*')  选取兄弟节点
 ```
 
 # BeautifulSoup
+## 节点选择器
+* 选择元素
+```
+soup = BeautlfulSoup(markup, 'lxml')
+soup.title, soup.title.p, soup.title.string(获取title的文本内容)
+```
+* 提取信息
+```
+soup.title.name(打印节点的名称), soup.title.attrs['class'](获取属性的值)
+soup.p['class'](获取属性)
+```
+* 嵌套选择
+```
+soup.head.title.string
+```
+* 关联选择
+```
+soup.p.contents(获取p节点的直接节点, 并且以list的形式返回)
+soup.p.children(返回p节点的直接子节点, generator)
+soup.p.descendants(p的所有子孙节点,generator)
+soup.a.paretn(寻找父亲节点, generator)
+soup.a.parents(寻找祖先节点, generator)
+soup.a.next_sbiling?s(寻找下一个兄弟节点, )
+soup.a.previous_sibling?s(寻找前一个兄弟节点)
+获取关联节点的信息，同上面一样
+```
 
+* 方法选择器
+```
+soup.find_all(name="tag")    # 查找所有的tag标签
+for ul in soup.find_all(name="ul"):
+    for li in ul.find_all("li"):
+        # 嵌套的查询
+soup.find_all(attrs={})    #通过属性来查找 对于属性id, class直接用 id=xxx, class_(与python的class关键字冲突, 所以添加_)
+soup.find_all(text=re.compile(r'pattern'))    # 通过text来匹配文本
+find()返回一个符合条件的tag
+find_parents(), find_parent()   返回父亲节点s/父亲节点
+find_next_siblings(), find_next_sibling()   返回后面兄弟节点s/兄弟节点
+find_previous_sibling(), find_previous_siblings()   返回前面的兄弟节点s/兄弟节点
+find_next(), find_all_next()    返回符合条件的后面的节点/全部节点
+find_previous(), find_all_previous()    返回符合条件的前面的节点/全部节点
+```
+
+* css选择器
+```
+soup.select(".panel .panel-head")    # 选择class=panel下的class=panel-heading的标签
+soup.select("ul")
+soup.slect("#list-2 .element")    # 选取id=list-2下的class=element的所有标签
+获取文本 string, get_text()
+```
