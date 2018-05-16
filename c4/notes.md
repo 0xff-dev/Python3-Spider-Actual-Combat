@@ -96,7 +96,6 @@ html.xpath('//li[1]/following-sibling::*')  选取兄弟节点
 ```
 
 # BeautifulSoup
-## 节点选择器
 * 选择元素
 ```
 soup = BeautlfulSoup(markup, 'lxml')
