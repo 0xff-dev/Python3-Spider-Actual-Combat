@@ -10,6 +10,7 @@ pylint = "*"
 requests = "*"
 requests-oauthlib = "*"
 lxml = "*"
+"beautifulsoup4" = "*"
 
 [requires]
 python_version = "3.5"
