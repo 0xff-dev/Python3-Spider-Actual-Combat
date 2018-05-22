@@ -3,7 +3,7 @@
 
 ##  install
 ```bash
-pipens install selenium
+pipenv install selenium
 ```
 
 ### chromedriver
