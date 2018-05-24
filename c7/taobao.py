@@ -16,7 +16,8 @@ from pyquery import PyQuery as pq
 
 from pymongo import MongoClient
 
-
+# SERVICE_ARGS=['--load-images=false', '-disk-cache=true']
+# webdriver.PhantomJS(service_agrs=SERVICE_ARGS)    加快爬去速度
 brower = webdriver.PhantomJS()
 KEYWORD='iPad'
 wait = WebDriverWait(brower, 10)
