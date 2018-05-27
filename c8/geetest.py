@@ -12,7 +12,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver import ActionChains
 
 
-EMAIL = 'cqc@cuiqingcai.com'
+EMAIL = 'stevenshuang@gmail.com'
 PASSWORD = '123456'
 
 
@@ -95,7 +95,7 @@ class CrackGeetest(object):
         track = []
         current = 0
         mid = distance*4/5
-        t = 0.5    # 计算间隔? 没有明白m, 调整速度?
+        t = 0.5
         v = 0
         
         while current < distance:
@@ -159,3 +159,4 @@ class CrackGeetest(object):
 if __name__ == '__main__':
     crack = CrackGeetest()
     crack.crack()
+
