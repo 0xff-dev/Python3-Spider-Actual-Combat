@@ -18,7 +18,7 @@ from selenium.webdriver import ActionChains
 
 
 WEIBO_USERNAME = '13050901105'
-WEIBO_PASSWORD = 'Zs935809546'
+WEIBO_PASSWORD = '123456'
 TEMPLATE_FOLDER = 'templates/'
 
 
