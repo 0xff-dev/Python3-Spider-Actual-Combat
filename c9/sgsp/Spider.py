@@ -10,10 +10,9 @@ from pyquery import PyQuery as pq
 
 from RedisQueue import RedisQueue
 from Request import WeiXinRequest
+from .MySql import MySQL
 from urllib.parse import uelencode
-
-# 明天完成mysql的链接
-MAX_FAIL_TIME = 10
+from settings import *
 
 
 class Spider(object):
@@ -33,7 +32,8 @@ class Spider(object):
         }
         self.session = Session()
         self.queue = RedisQueue()
-    
+        self.mysql = MySQL()
+
     def start(self):
         '''
         初始化工作
@@ -53,7 +53,7 @@ class Spider(object):
         for item in items:
             url = item.attr('href')
             weixin_request = WeiXinRequest(url=url, 
-                    callback=self.parse_index, headers=self.headers)
+                    callback=self.parse_detail, headers=self.headers)
             yield weixin_request
         # 下一页链接
         next = doc('#sogou_next').attr('href')
@@ -110,8 +110,10 @@ class Spider(object):
                 results = list(callback(response))    # gererator
                 if results:
                     for result in results:
-                        if isinstance(weixin_request, WeiXinRequest):
-                            self.queue.pusp(weixin_request)
+                        if isinstance(result, WeiXinRequest):
+                            self.queue.pusp()
+                        if isinstance(result, dict):
+                            self.mysql.insert(result)
                 else:
                     self.error(weixin_request)
             else:
