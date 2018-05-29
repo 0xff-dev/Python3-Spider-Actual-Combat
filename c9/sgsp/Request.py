@@ -3,8 +3,7 @@
 
 
 from requests import Request
-
-TIMEOUT=10
+from settings import TIMEOUT
 
 
 class WeiXinRequest(Request):
