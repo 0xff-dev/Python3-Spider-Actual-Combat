@@ -7,7 +7,7 @@ verify_ssl = true
 pylint = "*"
 
 [packages]
-requests = "*"
+requests = {extras = ["socks"]}
 requests-oauthlib = "*"
 lxml = "*"
 "beautifulsoup4" = "*"
@@ -18,6 +18,10 @@ redis = "*"
 selenium = "*"
 pillow = "*"
 pyocr = "*"
+flask = "*"
+django-pure-pagination = "*"
+aiohttp = "*"
+yarl = "==1.2.0"
 
 [requires]
 python_version = "3.5"
