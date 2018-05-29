@@ -3,14 +3,8 @@
 
 from pickle import dumps, loads
 from Request import WeiXinRequest
+from settings imprt REDIS_HSOT, REDIS_PORT, REDIS_PASSWORD, REDIS_KEY
 import redis
-
-
-# 先这做后面全收集到setting
-REDIS_HSOT = 'localhsot'
-REDIS_PORT = 6379
-REDIS_PASSWORD = None
-REDIS_KEY = 'sg'
 
 
 class RedisQueue(object):
