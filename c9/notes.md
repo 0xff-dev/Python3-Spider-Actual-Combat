@@ -57,3 +57,10 @@ resp = requests.get(url, proxies=proxies)
 
 ```
 
+## 说明
+> 在搜狗微信爬虫中，没有设置cookies，使用代理需要设置一下，同时参考我的[ProxyPool](https://github.com/stevenshuang/ProxyPool)使用代理池
+> 我设置的池子貌似只有15条左右的ip可以使用，可以在自己增加一些其他的免费ip, 后面会增加付费代理, 以及ADSL拨号代理
+
+## 感谢
+> 感谢支持!以及崔大大
+
