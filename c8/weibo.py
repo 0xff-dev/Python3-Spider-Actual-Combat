@@ -49,6 +49,7 @@ class CrackWeiboSlide(object):
         password.send_keys(self.password)
         submit.click()
 
+
     def get_position(self):
         '''
         获取验证码的位置
@@ -84,6 +85,9 @@ class CrackWeiboSlide(object):
         screenshot = screenshot.crop((left, top, right, bottom))
         screenshot.save(name)
         return screenshot
+    
+    def get_cookies(self):
+        return self.brower.get_cookies()
 
     def do(self):
         '''
@@ -157,15 +161,47 @@ class CrackWeiboSlide(object):
                 # 根据文件的名字提供提动的方向
                 return numbers
     
+    def password_error(self):
+        """判断密码错误"""
+        try:
+            WebDriverWait(self.brower, 4).until(EC.text_to_be_present_in_element((By.ID, "errorMsg"), "用户名或密码错误"))
+        except TE as e:
+            return False
+
+    def login_successfully(self):
+        """无验证码直接登录"""
+        try:
+            return bool(
+                    WebDriverWait(selg.brower, 5).until(EC.presence_of_element_located((By.CLASS_NAME, "drop-title"))))
+        except TE as e:
+            return False
+
+
     def crack(self):
         self.open()
+        if self.password_error():
+            return {
+                    'status': 2,
+                    'content': '用户名或者密码错误',
+                    }
+        if self.login_successfully():
+            # 无需验证直接登录
+            return {
+                    'status': 1,
+                    'content': self.get_cookies(),
+                    }
+
         image = self.get_image()
         numbers = self.detect_image(image)
         self.move(numbers)
-        time.sleep(10)
-        print ('识别结束')
-
-
-if __name__ == '__main__':
-    CrackWeiboSlide().crack()
+        if self.login_successfully():
+            return {
+                'status': 1,
+                'content': self.get_cookies(),
+            }
+        else
+            return {
+                'status': 3,
+                'content': '验证码错误或者帐号密码错误',
+            }
 
