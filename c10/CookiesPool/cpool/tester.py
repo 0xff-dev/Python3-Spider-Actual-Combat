@@ -23,7 +23,7 @@ class Vaildtester(object):
 
     def run(self):
         cookies_groups = self.cookies_db.all()
-        for cg in cookies_groups:
+        for username, cg in cookies_groups.items():
             self.test(username, cg)
 
 
