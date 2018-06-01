@@ -8,4 +8,11 @@
 > github更新了，个人动态部分抓取不到，*网页源代码可以获取到
 
 ## Cookies池
-> Ing
+> Cookie池和之前的ProxyPool池是类似的实现，分别包括
+* 获取模块 (用与获取帐号的Cookies)
+* 存储模块 (将username, password, cookie 存储在Redis中)
+* 检测模块 (用于检测Cookie是否过期, 过期的删掉)
+* 接口模块 (用户计算总的cookies数量，和随机返回可用的Cookies)
+
+
+
