@@ -20,8 +20,12 @@ pillow = "*"
 pyocr = "*"
 flask = "*"
 django-pure-pagination = "*"
-aiohttp = "*"
+aiohttp = "==2.3.6"
 yarl = "==1.2.0"
+wordcloud = "*"
+async-timeout = "==2.0.1"
+appium-python-client = "==0.2"
+itchat = "*"
 
 [requires]
 python_version = "3.5"
