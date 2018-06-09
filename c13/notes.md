@@ -24,3 +24,17 @@ open_spier(), 在爬虫开启的时候，调用
 close_spider() 关闭爬虫调用
 process_item()  对结果item进行过滤
 ```
+
+## Scrapy Xpath
+```python3
+
+from scrapy import Selector
+
+selector = Selector(text=html)
+result = selector.xpath('//a[@href="xx"]')
+
+# 提取, 使用extract_first可以避免数组越界的问题, 还可以传默认参数, 得不到数据的时候返回
+first_result = result.extract_frist()
+results = result.extract()
+
+```
