@@ -52,5 +52,20 @@ results = result.extract()
 * stat\_urls 开始的url列表
 * parse Response没有指定回调函数, 调用, 提取数据和下一步的请求, 返回一个Requerst, Item对象
 
+## DOWNLOADER MIDDLERARES
+> 想要重新定义DOWNLOADER MIDDLERARES 实现一下三个任意一个方法
+* process\_request(request, spider)
+    > Request被Scrapy的引擎调度给DownLoader前, 先调用该函数, 返回None, Request, Response
+    > 返回None, 将有其他的DownLoader继续执行这个Request
+    > 返回Request, Request重新放到调度队列中
+    > 返回Response, 每个DOWNLOADER的 process_response()
 
+* process\_response(request, response, spider)
+    > 在下载Request后, 在Scrapy将Response传到spider处理之前, 通过process_request处理
+    > 返回Request, 送入调度队列中，等待被处理
+    > 返回Response 优先级较低的DOWNLOADER处理, 
+    > 异常 调errorback()
+
+* process\_exception()
+    > 调用类似同上
 
