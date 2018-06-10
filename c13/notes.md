@@ -38,3 +38,19 @@ first_result = result.extract_frist()
 results = result.extract()
 
 ```
+
+## Spider使用
+* 用start\_url初始化Request, 请求成功的时候, Response传递给回调函数进行处理
+* 在回调函数中进行页面解析, 有两种情况, 解析出item数据, 另一个是解析到url, 重新加入调度队列
+* 对解析出的item数据, 可以通过feed exports写入文件, 设置Pipeline写入数据库, 过滤等
+* 返回的是Request，执行Request得到Response, 在用回调函数解析
+
+
+## Spider的分析
+### 重要基础属性
+* alloww\_domains  允许的爬取域名
+* stat\_urls 开始的url列表
+* parse Response没有指定回调函数, 调用, 提取数据和下一步的请求, 返回一个Requerst, Item对象
+
+
+
