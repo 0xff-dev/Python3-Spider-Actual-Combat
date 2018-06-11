@@ -69,3 +69,32 @@ results = result.extract()
 * process\_exception()
     > 调用类似同上
 
+## Spider MIDDLEWARES
+> 四个方法
+* process\_spider\_input(response, spider)
+    > 返回None, 继续调用其他的Middleware
+    > 异常 直接调用errback(), 为毛两次命名不一样, errorback(), errback()?????
+
+* process\_spider\_output(response, result, spider)
+    > 返回包含Request,或者item可迭代对象
+
+* process\_spider\_exception(response, exception, spider)
+    > 当input方法抛出异常的时候, 有该函数处理
+
+## item pipeline
+> 核心方法
+* open\_spider()
+* close\_spider()
+* from\_crawler(cls, crawler)
+    > 是一个类方法, 用@classmethod标识, 从配置文件中读取配置信息
+* process\_item()
+    > 处理Item对象, 如果出现异常, Item被丢弃
+
+### 关于Images360项目的总结
+> * 分析ajax, 得到一个普遍的请求
+> * 在start\_requests()函数中开启分页爬取, 可以自己家标签, 在分标签爬取,
+> * parse函数, 添加item数据
+> * PipeLine 使用了MongoPipeLine, MysqlPipeLine, 来存储item的信息
+> * 使用ImagePipeLine 来下载图片, 在设置中设置IMAGES\_STORE存储路径
+> * 最后启动爬虫
+
