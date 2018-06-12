@@ -98,6 +98,57 @@ results = result.extract()
 > * 使用ImagePipeLine 来下载图片, 在设置中设置IMAGES\_STORE存储路径
 > * 最后启动爬虫
 
+## Scrapy 通用爬虫
+1. CrawlSpider 继承scrapy.Spider, 主要的属性和方法
+    > rules 包含多个Rule对象的list
+    > parse_start_url 当start_url对应的Request得到Response该方法被调用
+    ```python
+    Rule(link_extractor, callback, cb_kwargs, follow, process_links, process_request)
+    link_extractor在页面中提取那些链接, callback回调函数, cb_kwargs回调函数的参数
+    follow提取的链接是否需要跟进, process_links 指定处理函数, 从link_extractors提取的链接调用该函数
+    process_request 根据Rule的规则, 提取的Request, 该函数被调用
+    ```
+2. Item Loader
+> Item Loader的API参数
+> * Item 是item对象, 可以调用add\_xpath, add\_css, add\_value,
+> * selector 是Selector对象, 用来提取填充的数据
+> * response Response对象, 构造Response选择器
+
+```python
+from scrapy.loader import ItemLoader
+from projects.items import Product
+
+def parse(self, response):
+    loaders = ItemLoader(item=Product(), response=response)
+    loader.add_xpath('arrribute', '')
+    loader.add_css('attribute','')
+    loader.add_value('attribute', '')
+    return loader.load_item()
+```
+## Processor 介绍
+> ItemLoader的每个字段都包含了Input Processor, Output Processor, Input收到数据立刻提取, 但是不保存进item, load\_item调用的时候, 
+> 会调用Output Processor, 处理收集到的数据, 然后保存进Item对象
+
+* Identity
+> 最简单的Processor, 不做任何处理, 直接返回原来的数据
+* TakeList
+> 常用做Output Porcessor, 提取地一个非空的值, 
+* Join
+> 链接字符串, 
+* Compose 
+> 有多个函数组成的processor, 每个输入值传给地一个参数, 返回值传给第二个参数, 类推
+```python3
+processor = Compose(str.upper, lambda x:x.strip())
+print (processor(' hello world '))
+```
+* MapCompose
+> 类似Compose, 迭代处理列比哦啊的输入值
+processos = MapCompose(str.upper, lambda x:x.strip())
+print (processor([' hello ', ' world']))
+
+* SelectJmes
+> 查询json, 传入key, 得到value, 先安装jmespath ```bashpipenv install jmespath```
+
 ## Scrapy框架结构
 ![scrapy](images/scrapy.png)
 
