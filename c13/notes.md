@@ -98,6 +98,6 @@ results = result.extract()
 > * 使用ImagePipeLine 来下载图片, 在设置中设置IMAGES\_STORE存储路径
 > * 最后启动爬虫
 
-## Scrap框架结构
+## Scrapy框架结构
 ![scrapy](images/scrapy.png)
 
