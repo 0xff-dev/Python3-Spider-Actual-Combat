@@ -28,6 +28,7 @@ appium-python-client = "==0.2"
 itchat = "*"
 pyspider = "*"
 scrapy = "*"
+scrapyrt = "*"
 
 [requires]
 python_version = "3.5"
