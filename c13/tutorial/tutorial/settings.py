@@ -17,7 +17,7 @@ ITEM_PIPELINES = {
     'tutorial.pipelines.TextPipeline': 300,
     'tutorial.pipelines.MongoPipeline': 400,
 }
-MONGO_URL='localhost'
+MONGO_URL='mongodb://123:123@110.290.229.168:27017'
 MONGO_DB='quotes'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
