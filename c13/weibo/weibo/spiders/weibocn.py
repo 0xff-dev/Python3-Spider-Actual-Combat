@@ -22,18 +22,18 @@ class WeibocnSpider(Spider):
 
     def start_requests(self):
         for user in self.start_users:
-            yield Request(self.user_url.format(uid=user), callback-self.parse_user)
+            yield Request(self.user_url.format(uid=user), callback=self.parse_user)
 
     def parse_user(self, response):
         self.logger.debug(response)
         result = json.loads(response.text)
-        if result.get('data').get('UserInfo'):
-            user_info = result.get('data').get('UserInfo')
+        if result.get('data').get('userInfo'):
+            user_info = result.get('data').get('userInfo')
             user_item = UserItem()
             field_map = {
                     'id': 'id', 'name': 'screen_name', 'avatar': 'profile_image_url', 'cover': 'cover_image_phone',
-                    'gener': 'gener', 'description': 'description', 'fans_count': 'followers_count',
-                    'follow_count': 'follow_count', 'weibos_count': 'statuses_count', 'verified': 'verified',
+                    'gender': 'gener', 'description': 'description', 'fans_count': 'followers_count',
+                    'follows_count': 'follow_count', 'weibos_count': 'statuses_count', 'verified': 'verified',
                     'verified_reason': 'verified_reason', 'verified_type': 'verified_type',
                 }
             for field, attr in field_map.items():
@@ -41,25 +41,28 @@ class WeibocnSpider(Spider):
             yield user_item
             uid = user_info.get('id')
             # 关注
-            yield Request(self.follow_url.format(uid=uid, page=1), callback=self.parse_follows, meta={'page': 1, 'uid': uid})
+            yield Request(self.follow_url.format(uid=uid, page=1), 
+                    callback=self.parse_follows, meta={'page': 1, 'uid': uid})
             # 粉丝
-            yield Request(self.fans_url.format(uid=uid, page=1), callback=self.parse_fans, meta={'page': 1, 'uid': uid})
+            yield Request(self.fans_url.format(uid=uid, page=1), 
+                    callback=self.parse_fans, meta={'page': 1, 'uid': uid})
             # 微薄
-            yield Request(self.weibo_url.format(uid=uid, page=1), callback=self.parse_weibos, meta={'page': 1, 'uid': uid})
+            yield Request(self.weibo_url.format(uid=uid, page=1), 
+                    callback=self.parse_weibos, meta={'page': 1, 'uid': uid})
 
     def parse_follows(self, response):
         result = json.loads(response.text)
         if result.get('ok') and result.get('data').get('cards') 
             and len(result.get('data').get('cards')) 
             and result.get('data').get('cards')[-1].get('card_group'):
-            follows = result.get('data').get('cards')[-1].get('cards_group')
+            follows = result.get('data').get('cards')[-1].get('card_group')
             for follow in follows:
                 if follow.get('user'):
                     uid = follow.get('user').get('id')
-                    yield Request(self.user_url.format(uid), callback=self.parse_user)
+                    yield Request(self.user_url.format(uid=uid), callback=self.parse_user)
             # 当前用户的uid, 最relation
             uid = response.meta.get('uid')
-            user_relation = _item = UserRelationItem()
+            user_relation = UserRelationItem()
             follows = [{'id': follow.get('user').get('id'), 'name': follow.get('user').get('screen_name')} 
                     for follow in follows]
             user_relation['id'] = uid
@@ -67,7 +70,8 @@ class WeibocnSpider(Spider):
             user_relation['fans'] = []
             yield user_relation
             page = response.meta.get('page')+1
-            yield Request(self.follow_url.format(uid=uid, page=page), callback=self.parse_follows, meta={'uid': uid, 'page': page})
+            yield Request(self.follow_url.format(uid=uid, page=page), 
+                    callback=self.parse_follows, meta={'uid': uid, 'page': page})
     
     def parse_fans(self, response):
         pass
@@ -80,6 +84,7 @@ class WeibocnSpider(Spider):
             for weibo in weibos:
                 mblog = weibo.get('mblog')
                 if mblog:
+                    weibo_item = WeiboItem()
                     field_map = {
                         'id': 'id', 'attitudes_count': 'attitudes_count', 'comments_count': 'comments_count',
                         'created_at': 'created-at', 'reposts_count': 'reposts_count', 'picture': 'original_pic',
@@ -87,13 +92,11 @@ class WeibocnSpider(Spider):
                         'thumbnail': 'thumbnail_pic'
                     }
                     for field, attr in field_map.items():
-                        weibo_item = WeiboItem()
                         weibo_item[field] = mblog.get(attr)
                         weibo_item['user'] = response.meta.get('uid')
                         yield weibo_item
                 uid = response.meta.get('uid')
                 page = response.meta.get('page')+1
-                yield Request(self.weibo_url.format(uid, page), callback=self.parase_weibos, meta={'uid': uid, 'page': page})
-
-   
+                yield Request(self.weibo_url.format(uid, page), 
+                        callback=self.parase_weibos, meta={'uid': uid, 'page': page})
 
