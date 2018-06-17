@@ -10,14 +10,10 @@ import time
 class WeibocnSpider(Spider):
     name = 'weibocn'
     allowed_domains = ['m.weibo.cn']
-    user_url = 'https://m.weibo.cn/api/container/getIndex?\
-            uid={uid}&type=uid&value={uid}&containerid=100505{uid}'
-    follow_url = 'https://m.weibo.cn/api/container/getIndex?\
-            containerid=231051_-_followers_-_{uid}&page={page}'
-    fans_url = 'https://m.weibo.cn/api/container/getIndex?\
-            containerid=231051_-_fans_-_{uid}&page={page}'
-    weibo_url = 'https://m.weibo.cn/api/container/getIndex?\
-            uid={uid}&type=uid&page={page}&containerid=107630{uid}'
+    user_url = 'https://m.weibo.cn/api/container/getIndex?uid={uid}&type=uid&value={uid}&containerid=100505{uid}'
+    follow_url = 'https://m.weibo.cn/api/container/getIndex?containerid=231051_-_followers_-_{uid}&page={page}'
+    fans_url = 'https://m.weibo.cn/api/container/getIndex?containerid=231051_-_fans_-_{uid}&page={page}'
+    weibo_url = 'https://m.weibo.cn/api/container/getIndex?uid={uid}&type=uid&page={page}&containerid=107630{uid}'
     start_users = ['3217179555', '1742566624', '2282991915']
 
     def start_requests(self):
@@ -52,8 +48,8 @@ class WeibocnSpider(Spider):
 
     def parse_follows(self, response):
         result = json.loads(response.text)
-        if result.get('ok') and result.get('data').get('cards') 
-            and len(result.get('data').get('cards')) 
+        if result.get('ok') and result.get('data').get('cards') \
+            and len(result.get('data').get('cards')) \
             and result.get('data').get('cards')[-1].get('card_group'):
             follows = result.get('data').get('cards')[-1].get('card_group')
             for follow in follows:
@@ -76,7 +72,7 @@ class WeibocnSpider(Spider):
     def parse_fans(self, response):
         pass
 
-    def parase_weibos(self, response):
+    def parse_weibos(self, response):
         """抓取用户的微波信息"""
         result = json.loads(response.text)
         if result.get('ok') and result.get('data').get('cards'):
