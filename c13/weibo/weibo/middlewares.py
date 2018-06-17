@@ -105,7 +105,7 @@ class WeiboDownloaderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
-
+"""
 class CookiesMiddleware():
 
     def __init__(self, cookies_url):
@@ -134,7 +134,7 @@ class CookiesMiddleware():
         return cls(
             cookies_url = crawler.settings.get('COOKIES_URL')
         )
-
+"""
 
 class ProxyMiddleware():
 
@@ -163,6 +163,29 @@ class ProxyMiddleware():
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
-            proxy_url = crawler.settings.get('PROXY_URL')
+            proxy_url = crawler.settings.get('PROXY_URI')
         )
+
+
+class UserAgentMiddleware(object):
+
+    def __init__(self, user_agent='Scrapy'):
+        self.user_agent = user_agent
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            user_agent = crawler.settings.get('USER_AGENT'),
+        )
+
+    def open_spider(self, spider):
+        self.user_agent = getattr(spider, 'user_agent', self.user_agent)
+    
+    def process_request(self, request, spider):
+        if self.user_agent:
+            request.headers['User-Agent'] = self.user_agent
+    
+    def process_response(self, request, response, spider):
+        request.status = 200
+        return response
 
