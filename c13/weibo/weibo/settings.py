@@ -21,6 +21,11 @@ NEWSPIDER_MODULE = 'weibo.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+MONGO_URI = 'localhost'
+MONGO_DB = 'weibo'
+PROXY_URI = 'http://localhost/random'
+COOKIES_URI = 'https://localhost/weibo/random'
+
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
