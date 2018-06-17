@@ -57,5 +57,3 @@ class WeiboItem(scrapy.Item):
     created_at = Field()
     crawled_at = Field()
 
-
-
