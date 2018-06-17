@@ -23,9 +23,9 @@ ROBOTSTXT_OBEY = False
 
 MONGO_URI = 'localhost'
 MONGO_DB = 'weibo'
-PROXY_URI = 'http://localhost/random'
+PROXY_URI = 'http://localhost:5000/random'
 COOKIES_URI = 'https://localhost/weibo/random'
-
+USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -52,16 +52,19 @@ COOKIES_URI = 'https://localhost/weibo/random'
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-SPIDER_MIDDLEWARES = {
-    'weibo.middlewares.CookiesMiddleware': 554,
-    'weibo.middlewares.ProxyMiddleware': 555,
-}
+#SPIDER_MIDDLEWARES = {
+    #'weibo.middlewares.CookiesMiddleware': 554,
+    #'weibo.middlewares.UserAgentMiddleware': 554,
+    #'weibo.middlewares.ProxyMiddleware': 555,
+#}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'weibo.middlewares.WeiboDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    #'weibo.middlewares.WeiboDownloaderMiddleware': 543,
+    'weibo.middlewares.UserAgentMiddleware': 543,
+    'weibo.middlewares.ProxyMiddleware': 544,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
