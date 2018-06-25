@@ -24,8 +24,29 @@ ROBOTSTXT_OBEY = False
 MONGO_URI = 'localhost'
 MONGO_DB = 'weibo'
 PROXY_URI = 'http://localhost:5000/random'
-COOKIES_URI = 'https://localhost/weibo/random'
+# 这个改一下端口启动
+COOKIES_URI = 'https://localhost:5001/weibo/random'
 USER_AGENT = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36'
+
+
+# 设置scrapy-redis
+SCHEDULER = 'scrapy_redis.scheduler.Scheduler'
+DUPEFILTER_CLASS = 'scrapy_redis.dupefilter.RFPDupeFilter'
+
+# 设置共享的队列使用的redis
+REDIS_HOST = '172.20.10.6'
+REDIS_PORT = 6379
+REDIS_PASSWORD = 'foobared'
+
+# 设置调度队列
+SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.PriorityQueue'
+SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.FifoQueue'
+SCHEDULER_QUEUE_CLASS = 'scrapy_redis.queue.LifoQueue'
+
+# 设置爬虫结束后队列是否清空, 如果强制中断爬虫, 集合和指纹不会清空
+SCHEDULER_PERSIST = True    # 结束后不清空, False就是清空
+# 设置是否重新爬取
+SCHEDULER_FLSUH_ON_START = True    # 爬虫启动后接着上次的爬
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
