@@ -1,4 +1,4 @@
-aiohttp==2.3.6
+aiohttp==3.7.4
 Appium-Python-Client==0.2
 asn1crypto==0.24.0
 async-timeout==2.0.1
