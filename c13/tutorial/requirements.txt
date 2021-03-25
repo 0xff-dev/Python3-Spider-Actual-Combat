@@ -51,7 +51,7 @@ PySocks==1.6.8
 pyspider==0.3.10
 python-dateutil==2.7.3
 pytz==2018.4
-PyYAML==3.12
+PyYAML==5.4
 queuelib==1.5.0
 redis==2.10.6
 requests==2.18.4
