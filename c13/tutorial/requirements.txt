@@ -65,7 +65,7 @@ tblib==1.3.2
 tornado==4.5.3
 Twisted==18.4.0
 u-msgpack-python==2.5.0
-urllib3==1.22
+urllib3==1.26.5
 w3lib==1.19.0
 Werkzeug==0.14.1
 wordcloud==1.4.1
