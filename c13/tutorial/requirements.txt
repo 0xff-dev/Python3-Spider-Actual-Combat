@@ -63,7 +63,7 @@ service-identity==17.0.0
 six==1.11.0
 tblib==1.3.2
 tornado==4.5.3
-Twisted==18.4.0
+Twisted==22.1.0
 u-msgpack-python==2.5.0
 urllib3==1.22
 w3lib==1.19.0
