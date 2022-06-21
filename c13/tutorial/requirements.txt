@@ -30,7 +30,7 @@ lxml==4.2.1
 MarkupSafe==1.0
 matplotlib==2.2.2
 multidict==4.3.1
-numpy==1.14.4
+numpy==1.22.0
 oauthlib==2.1.0
 parsel==1.4.0
 Pillow==5.1.0
